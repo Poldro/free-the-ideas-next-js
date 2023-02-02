@@ -2,7 +2,6 @@ import { type NextPage } from "next";
 import { useState } from "react";
 import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react'
 const CountWords: NextPage = () => {
-    const [inputWords, setInputWords] = useState("")
     const [wordCount, setWordCount] = useState(0);
     const [characterCount, setCharacterCount] = useState(0);
     const [sentenceCount, setSentenceCount] = useState(0);
@@ -11,8 +10,7 @@ const CountWords: NextPage = () => {
     const [selectedCharacterCount, setSelectedCharacterCount] = useState(0);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setInputWords(e.target.value),
-            setWordCount(e.target.value.split(' ').filter(word => word.length > 0).length);
+        setWordCount(e.target.value.split(' ').filter(word => word.length > 0).length);
         setCharacterCount(e.target.value.length);
         setSentenceCount(e.target.value.split(/[.!?]+|\n/g).length - 1);
     };
