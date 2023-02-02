@@ -5,19 +5,24 @@ const CountWords: NextPage = () => {
     const [inputWords, setInputWords] = useState("")
     const [wordCount, setWordCount] = useState(0);
     const [characterCount, setCharacterCount] = useState(0);
-    const [specialCharacterCount, setSpecialCharacterCount] = useState(0);
+    const [sentenceCount, setSentenceCount] = useState(0);
 
-    const specialCharacterRegex = /[^\w\s]/g;
+    const [selectedWordCount, setSelectedWordCount] = useState(0);
+    const [selectedCharacterCount, setSelectedCharacterCount] = useState(0);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setInputWords(e.target.value),
             setWordCount(e.target.value.split(' ').filter(word => word.length > 0).length);
         setCharacterCount(e.target.value.length);
-
-        setSpecialCharacterCount(
-            (e.target.value.match(specialCharacterRegex) || []).length
-        );
+        setSentenceCount(e.target.value.split(/[.!?]+|\n/g).length - 1);
     };
+
+    const handleSelection = () => {
+        const selection = window.getSelection() || '';
+        setSelectedWordCount(selection.toString().split(/\s+/g).filter(Boolean).length);
+        setSelectedCharacterCount(selection.toString().length);
+    };
+
     return (
         <div className="flex flex-col justify-center items-center w-full h-screen">
             <div className="w-full h-full max-w-3xl my-5 lg:my-8 divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
@@ -28,6 +33,7 @@ const CountWords: NextPage = () => {
                     <GrammarlyEditorPlugin clientId="client_2QNNYPesdJhwfCszntmPA6">
                         <textarea
                             onChange={handleChange}
+                            onSelect={handleSelection}
                             placeholder="Write something..."
                             className="p-2 resize-none block w-full h-full sm:text-sm border-0 focus-ring-0 focus:outline-0"
                         >
@@ -39,20 +45,19 @@ const CountWords: NextPage = () => {
                 <dl className="my-4 gap-4 grid grid-cols-3 w-full">
 
                     <div className="flex flex-col justify-between rounded-lg bg-white px-4 py-5 shadow sm:p-6 text-center">
-                        <dt className="text-sm font-medium text-gray-500">Words</dt>
-                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{wordCount}</dd>
+                        <dt className="text-sm font-medium text-gray-500">{selectedWordCount !== 0 && 'Selected'} Words</dt>
+                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{selectedWordCount === 0 ? wordCount : selectedWordCount}</dd>
                     </div>
 
                     <div className="flex flex-col justify-between overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 text-center">
-                        <dt className="text-sm font-medium text-gray-500">Characters</dt>
-                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{characterCount}</dd>
+                        <dt className="text-sm font-medium text-gray-500">{selectedCharacterCount !== 0 && 'Selected'} Characters</dt>
+                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{selectedCharacterCount === 0 ? characterCount : selectedCharacterCount}</dd>
                     </div>
 
                     <div className="flex flex-col justify-between overflow-hidden rounded-lg bg-white px-4 py-5 shadow sm:p-6 text-center">
-                        <dt className="text-sm font-medium text-gray-500">Special Characters</dt>
-                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{specialCharacterCount}</dd>
+                        <dt className="text-sm font-medium text-gray-500">Sentences</dt>
+                        <dd className="mt-1 text-3xl font-semibold tracking-tight text-gray-900">{sentenceCount}</dd>
                     </div>
-
 
                 </dl>
             </div>
