@@ -34,7 +34,7 @@ const CountWords: NextPage = () => {
                         <textarea
                             onChange={handleChange}
                             onSelect={handleSelection}
-                            placeholder="Write something..."
+                            placeholder="Copy paste your text to count words, characters and sentences. Select only a portion of the text to count it."
                             className="p-2 resize-none block w-full h-full sm:text-sm border-0 focus-ring-0 focus:outline-0"
                         >
                         </textarea>
