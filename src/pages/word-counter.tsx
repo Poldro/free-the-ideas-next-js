@@ -12,7 +12,7 @@ const CountWords: NextPage = () => {
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setWordCount(e.target.value.split(' ').filter(word => word.length > 0).length);
         setCharacterCount(e.target.value.length);
-        setSentenceCount(e.target.value.split(/[.!?]+|\n/g).length - 1);
+        setSentenceCount(e.target.value.split(/[.!?]+/g).length - 1);
     };
 
     const handleSelection = () => {
