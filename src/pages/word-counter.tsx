@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import { useState } from "react";
 import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react'
+
 const CountWords: NextPage = () => {
     const [wordCount, setWordCount] = useState(0);
     const [characterCount, setCharacterCount] = useState(0);
@@ -63,9 +64,6 @@ const CountWords: NextPage = () => {
             </div>
         </div>
 
-        /*        <LayoutCountWords>
-                   <div>hello</div>
-               </LayoutCountWords> */
     )
 }
 
