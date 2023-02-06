@@ -1,6 +1,7 @@
 import { type NextPage } from "next";
 import { useState } from "react";
 import { GrammarlyEditorPlugin } from '@grammarly/editor-sdk-react'
+import Head from "next/head";
 
 const CountWords: NextPage = () => {
     const [wordCount, setWordCount] = useState(0);
@@ -25,6 +26,12 @@ const CountWords: NextPage = () => {
     };
 
     return (
+        <>
+              <Head>
+        <title>Word Counter</title>
+        <meta name='description' content='A simple free word counter, integrated with Grammarly to check english grammar.'/>
+      </Head>
+
         <div className="flex flex-col justify-center items-center w-full h-screen">
             <div className="w-full h-full max-w-3xl my-5 lg:my-8 divide-y divide-gray-200 rounded-lg bg-white shadow">
                 <div className="px-4 py-5 sm:p-6">
@@ -63,7 +70,7 @@ const CountWords: NextPage = () => {
                 </dl>
             </div>
         </div>
-
+        </>
     )
 }
 
