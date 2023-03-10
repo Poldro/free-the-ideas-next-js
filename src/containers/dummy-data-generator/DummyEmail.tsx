@@ -25,7 +25,7 @@ export const DummyEmail = () => {
 
 
   return (
-    <div className="h-full divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+    <div className="flex flex-col flex-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
       <div className="px-4 py-5 text-center sm:px-6">
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
@@ -50,7 +50,7 @@ export const DummyEmail = () => {
           </button>
         </form>
       </div>
-      <div className="relative h-5/6 p-4 sm:p-6">
+      <div className="relative flex-1 p-4 sm:p-6">
         <div
           className="absolute top-1 right-1 cursor-copy rounded-md border bg-white p-2 shadow-md transition hover:bg-gray-100"
           onClick={() => {
@@ -70,7 +70,7 @@ export const DummyEmail = () => {
 
         <textarea
           placeholder=""
-          className="focus-ring-0 block h-full w-full resize-none border-0 p-2 focus:outline-0 sm:text-sm"
+          className="scrollbar-hide focus-ring-0 block h-full  w-full resize-none border-0 p-2 focus:outline-0 sm:text-sm"
           value={randomEmails}
           onChange={(e) => setRandomEmails(e.target.value)}
         ></textarea>

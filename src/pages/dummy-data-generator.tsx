@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import { useState } from "react";
 import Tabs from "../components/Tabs";
 import { DummyEmail } from "../containers/dummy-data-generator/DummyEmail";
@@ -32,19 +33,25 @@ const CountWords: NextPage = () => {
     }
   };
   return (
+    <>
+          <Head>
+        <title>Dummy Data Generator</title>
+        <meta name="description" content="A tool to generate random text, emails and phone numbers" />
+      </Head>
     <Layout>
-      <div className="flex h-full w-full flex-col items-center justify-center">
-        <div className="h-full w-full max-w-3xl rounded-lg bg-white lg:my-8 ">
-          <div className="space-y-4 px-4 py-5 sm:p-6">
-            <h1 className="text-center text-3xl font-semibold">
+      <div className="flex flex-1 w-full flex-col items-center justify-center">
+        <div className="flex flex-col flex-1 w-full max-w-3xl rounded-lg bg-white lg:my-8 ">
+          <div className="space-y-4 px-4 py-2 md:p-6">
+            <h1 className="text-center text-lg md:text-3xl font-semibold">
               Dummy Data Generator
             </h1>
             <Tabs tabs={currentTabs} setTabs={setCurrentTabs} />
           </div>
-          <div className="h-4/5 ">{renderTab()}</div>
+          <div className="flex flex-1">{renderTab()}</div>
         </div>
       </div>
     </Layout>
+    </>
   );
 };
 

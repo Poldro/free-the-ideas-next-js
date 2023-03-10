@@ -150,7 +150,7 @@ export default function LayoutCountWords({
             </div>
           </div>
         </div>
-        <div className="flex h-screen flex-1 flex-col md:pl-64">
+        <div className="flex h-screen flex-col md:pl-64">
           <div className="sticky top-0 z-10 bg-gray-100 pl-1 pt-1 sm:pl-3 sm:pt-3 md:hidden">
             <button
               type="button"
@@ -161,9 +161,9 @@ export default function LayoutCountWords({
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <main className="h-full flex-1">
-            <div className="h-full py-6">
-              <div className="mx-auto h-full max-w-7xl px-4 sm:px-6 md:px-8">
+          <main className="flex flex-1">
+            <div className="py-2 md:py-6 flex flex-1">
+              <div className="mx-auto flex flex-1 max-w-7xl px-4 sm:px-6 md:px-8">
                 {/* Replace with your content */}
                 {children}
                 {/* /End replace */}

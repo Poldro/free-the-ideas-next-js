@@ -40,14 +40,14 @@ const CountWords: NextPage = () => {
         />
       </Head>
       <Layout>
-        <div className="flex h-full w-full flex-col items-center justify-center">
-          <div className="my-5 h-full w-full max-w-3xl divide-y divide-gray-200 rounded-lg bg-white shadow lg:my-8">
+        <div className="flex flex-1 w-full flex-col items-center justify-center">
+          <div className="my-5 flex flex-col flex-1 w-full max-w-3xl divide-y divide-gray-200 rounded-lg bg-white shadow lg:my-8">
             <div className="px-4 py-5 sm:p-6">
-              <h1 className="text-center text-3xl font-semibold">
+              <h1 className="text-center text-lg md:text-3xl font-semibold">
                 Word Counter
               </h1>
             </div>
-            <div className="h-5/6 px-4 py-4 sm:px-6">
+            <div className="flex-1 px-4 py-4 sm:px-6">
               <GrammarlyEditorPlugin clientId="client_2QNNYPesdJhwfCszntmPA6">
                 <textarea
                   onChange={handleChange}
