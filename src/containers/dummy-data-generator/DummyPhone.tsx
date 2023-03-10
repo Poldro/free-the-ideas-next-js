@@ -7,6 +7,10 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Input } from "../../components/Input";
 
+interface dataSubmit {
+  phoneToGenerate: number;
+  phoneFormat: string;
+}
 
 export const DummyPhone = () => {
   const {
@@ -19,12 +23,11 @@ export const DummyPhone = () => {
     new RandExp(/^\+39\s\d{10}$/).gen(),
   );
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: any)  => {
     setRandomNumbers('')
     for (let i = 0; i < data['phoneToGenerate']; i++) {
       setRandomNumbers(prevValue => prevValue + '\n' + substituteRandomNumbers(data["phoneFormat"]));
     }
-    /*  generateEmails(parseInt(data["numberEmails"])) */
   };
 
 

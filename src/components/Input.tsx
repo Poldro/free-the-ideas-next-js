@@ -12,6 +12,7 @@ interface InputTextProps {
     min?: number;
   };
   register: UseFormRegister<FieldValues>;
+
 }
 
 export const Input = ({
