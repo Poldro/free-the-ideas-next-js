@@ -54,7 +54,7 @@ export const DummyPhone = () => {
             <span>
               <Input
                 type={"number"}
-                label={"Numbers of phone numbers to generate"}
+                label={"Number of phone numbers to generate"}
                 name={"phoneToGenerate"}
                 defaultValue={5}
                 errors={errors}

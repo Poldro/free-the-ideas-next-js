@@ -30,7 +30,7 @@ export const DummyEmail = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             type={"number"}
-            label={"Numbers of emails to generate"}
+            label={"Number of emails to generate"}
             name={"emailToGenerate"}
             defaultValue={5}
             errors={errors}
