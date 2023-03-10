@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { navigation } from "../utils/const";
@@ -16,20 +16,9 @@ export default function LayoutCountWords({
 }) {
   const router = useRouter();
 
-  const [currentNavigation, setCurrentNavigation] = useState(navigation);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+      const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    setCurrentNavigation(
-      navigation.map((item) => {
-        return {
-          ...item,
-          current: item.href === router.pathname,
-        };
-      })
-    );
-  }, [router.pathname]);
-
+    
   return (
     <>
       <div>
@@ -94,12 +83,12 @@ export default function LayoutCountWords({
                       />
                     </div>
                     <nav className="mt-5 space-y-1 px-2">
-                      {currentNavigation.map((item) => (
+                      {navigation.map((item) => (
                         <Link
                           key={item.name}
                           href={item.href}
                           className={classNames(
-                            item.current
+                            item.href === router.pathname
                               ? "bg-gray-900 text-white"
                               : "text-gray-300 hover:bg-gray-700 hover:text-white",
                             "group flex items-center rounded-md px-2 py-2 text-base font-medium"
@@ -132,12 +121,12 @@ export default function LayoutCountWords({
                 />
               </div>
               <nav className="mt-5 flex-1 space-y-1 px-2">
-                {currentNavigation.map((item) => (
+                {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
                     className={classNames(
-                      item.current
+                      item.href === router.pathname
                         ? "bg-gray-900 text-white"
                         : "text-gray-300 hover:bg-gray-700 hover:text-white",
                       "group flex items-center rounded-md px-2 py-2 text-sm font-medium"
