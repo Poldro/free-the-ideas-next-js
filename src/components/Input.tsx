@@ -1,6 +1,6 @@
 import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
-interface InputTextProps {
+type InputTextProps = {
   type: string;
   label: string;
   name: string;
@@ -12,7 +12,6 @@ interface InputTextProps {
     min?: number;
   };
   register: UseFormRegister<FieldValues>;
-
 }
 
 export const Input = ({
@@ -38,21 +37,19 @@ export const Input = ({
           aria-invalid="true"
         />
       </div>
-       {errors[name]?.type === 'required' && (
-        <p className="mt-2 text-sm text-red-600">
-          {label} is required
-        </p>
+      {errors[name]?.type === "required" && (
+        <p className="mt-2 text-sm text-red-600">{label} is required</p>
       )}
-      {errors[name]?.type === 'min' && (
+      {errors[name]?.type === "min" && (
         <p className="mt-2 text-sm text-red-600">
           {label} must be greater than {errorsType.min}
         </p>
       )}
-        {errors[name]?.type === 'max' && (
+      {errors[name]?.type === "max" && (
         <p className="mt-2 text-sm text-red-600">
           {label} must be less than {errorsType.max}
         </p>
-      )} 
+      )}
     </>
   );
 };
