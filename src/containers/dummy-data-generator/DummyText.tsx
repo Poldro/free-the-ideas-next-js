@@ -25,11 +25,17 @@ export const DummyText = () => {
         <div
           className="absolute top-1 right-1 cursor-copy rounded-md border bg-white p-2 shadow-md transition hover:bg-gray-100"
           onClick={() => {
-            navigator.clipboard.writeText(randomString);
-            toast("Copied to clipboard", {
-              icon: "✂️",
-            });
+            void navigator.clipboard.writeText(randomString)
+              .then(() => {
+                toast("Copied to clipboard", {
+                  icon: "✂️",
+                });
+              })
+              .catch((error) => {
+                console.error("Failed to copy to clipboard", error);
+              });
           }}
+          
         >
           <ClipboardDocumentIcon className="h-5 w-5 text-gray-500" />
         </div>
