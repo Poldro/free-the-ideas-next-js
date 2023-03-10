@@ -1,3 +1,3 @@
 # Tools
 
-A scollection of eventually usefull tools built with [T3 Stack](https://create.t3.gg/)
+A collection of eventually usefull tools built with [T3 Stack](https://create.t3.gg/)
