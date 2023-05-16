@@ -41,7 +41,7 @@ const CountWords: NextPage = () => {
       </Head>
       <Layout>
         <div className="flex flex-1 w-full flex-col items-center justify-center">
-          <div className="my-5 flex flex-col flex-1 w-full max-w-3xl divide-y divide-gray-200 rounded-lg bg-white shadow lg:my-8">
+          <div className="flex flex-col flex-1 w-full max-w-3xl divide-y divide-gray-200 rounded-lg bg-white shadow">
             <div className="px-4 py-5 sm:p-6">
               <h1 className="text-center text-lg md:text-3xl font-semibold">
                 Word Counter

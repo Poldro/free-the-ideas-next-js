@@ -4,7 +4,8 @@ type InputTextProps = {
   type: string;
   label: string;
   name: string;
-  defaultValue: number | string;
+  value?: string;
+  defaultValue?: number | string;
   errors: FieldErrors<FieldValues>;
   errorsType: {
     required?: boolean;
@@ -12,16 +13,19 @@ type InputTextProps = {
     min?: number;
   };
   register: UseFormRegister<FieldValues>;
-}
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void; // Add this line
+};
 
 export const Input = ({
   type,
   label,
   name,
+  value,
   defaultValue,
   register,
   errors,
   errorsType,
+  onChange, 
 }: InputTextProps) => {
   return (
     <>
@@ -32,8 +36,10 @@ export const Input = ({
         <input
           type={type}
           className="block w-44 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          value={value}
           defaultValue={defaultValue}
           {...register(name, errorsType)}
+          onChange={onChange} // Add this line
           aria-invalid="true"
         />
       </div>

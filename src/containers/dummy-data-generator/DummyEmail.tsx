@@ -13,19 +13,24 @@ export const DummyEmail = () => {
   } = useForm();
 
   const [randomEmails, setRandomEmails] = useState<string>(
-    'user-fake@example.com'
+    "user-fake@example.com"
   );
 
   const onSubmit = async (data: any) => {
-    setRandomEmails('')
-    const email = await fetch(`https://randomuser.me/api/?inc=email&results=${data["emailToGenerate"]}`)
-    const result = await email.json()
-    setRandomEmails(prevValue => prevValue + result.results.map((i: { email: string; }) => i.email + '\n').join(''))
+    setRandomEmails("");
+    const email = await fetch(
+      `https://randomuser.me/api/?inc=email&results=${data["emailToGenerate"]}`
+    );
+    const result = await email.json();
+    setRandomEmails(
+      (prevValue) =>
+        prevValue +
+        result.results.map((i: { email: string }) => i.email + "\n").join("")
+    );
   };
 
-
   return (
-    <div className="flex flex-col flex-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
+    <>
       <div className="px-4 py-5 text-center sm:px-6">
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
@@ -41,7 +46,7 @@ export const DummyEmail = () => {
             }}
             register={register}
           />
-         
+
           <button
             type="submit"
             className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
@@ -54,7 +59,8 @@ export const DummyEmail = () => {
         <div
           className="absolute top-1 right-1 cursor-copy rounded-md border bg-white p-2 shadow-md transition hover:bg-gray-100"
           onClick={() => {
-            void navigator.clipboard.writeText(randomEmails.toString())
+            void navigator.clipboard
+              .writeText(randomEmails.toString())
               .then(() => {
                 toast("Copied to clipboard", {
                   icon: "✂️",
@@ -70,11 +76,11 @@ export const DummyEmail = () => {
 
         <textarea
           placeholder=""
-          className="scrollbar-hide focus-ring-0 block h-full  w-full resize-none border-0 p-2 focus:outline-0 sm:text-sm"
+          className="focus-ring-0 block h-full w-full  resize-none border-0 p-2 scrollbar-hide focus:outline-0 sm:text-sm"
           value={randomEmails}
           onChange={(e) => setRandomEmails(e.target.value)}
         ></textarea>
       </div>
-    </div>
+    </>
   );
 };

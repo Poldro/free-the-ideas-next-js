@@ -34,23 +34,29 @@ const CountWords: NextPage = () => {
   };
   return (
     <>
-          <Head>
+      <Head>
         <title>Dummy Data Generator</title>
-        <meta name="description" content="A tool to generate random text, emails and phone numbers" />
+        <meta
+          name="description"
+          content="A tool to generate random text, emails and phone numbers"
+        />
       </Head>
-    <Layout>
-      <div className="flex flex-1 w-full flex-col items-center justify-center">
-        <div className="flex flex-col flex-1 w-full max-w-3xl rounded-lg bg-white lg:my-8 ">
-          <div className="space-y-4 px-4 py-2 md:p-6">
-            <h1 className="text-center text-lg md:text-3xl font-semibold">
-              Dummy Data Generator
-            </h1>
-            <Tabs tabs={currentTabs} setTabs={setCurrentTabs} />
+      <Layout>
+        <div className="flex w-full flex-1 flex-col items-center justify-center">
+          <div className="flex w-full max-w-3xl flex-1 flex-col rounded-lg bg-white">
+            <div className="flex flex-1 flex-col divide-y divide-gray-200  rounded-lg bg-white shadow">
+              <div className="space-y-4 px-4 py-2 md:p-6">
+                <h1 className="text-center text-lg font-semibold md:text-3xl">
+                  Dummy Data Generator
+                </h1>
+                <Tabs tabs={currentTabs} setTabs={setCurrentTabs} />
+              </div>
+
+              {renderTab()}
+            </div>
           </div>
-          <div className="flex flex-1">{renderTab()}</div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
     </>
   );
 };

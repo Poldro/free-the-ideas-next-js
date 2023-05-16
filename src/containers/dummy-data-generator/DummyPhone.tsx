@@ -1,6 +1,4 @@
-import {
-  ClipboardDocumentIcon,
-} from "@heroicons/react/24/outline";
+import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import RandExp from "randexp";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -20,36 +18,40 @@ export const DummyPhone = () => {
   } = useForm();
 
   const [randomNumbers, setRandomNumbers] = useState<string>(
-    new RandExp(/^\+39\s\d{10}$/).gen(),
+    new RandExp(/^\+39\s\d{10}$/).gen()
   );
 
   const onSubmit = (data: any) => {
-    setRandomNumbers('')
-    for (let i = 0; i < data['phoneToGenerate']; i++) {
-      setRandomNumbers(prevValue => prevValue + substituteRandomNumbers(data["phoneFormat"]) + '\n');
+    setRandomNumbers("");
+    for (let i = 0; i < data["phoneToGenerate"]; i++) {
+      setRandomNumbers(
+        (prevValue) =>
+          prevValue + substituteRandomNumbers(data["phoneFormat"]) + "\n"
+      );
     }
   };
 
-
   return (
-    <div className="flex flex-col flex-1 divide-y divide-gray-200 rounded-lg bg-white shadow">
+    <>
+      {" "}
       <div className="px-4 py-5 text-center sm:px-6">
-        <form onSubmit={handleSubmit(onSubmit)} >
+        <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 md:grid-cols-2">
-           
             <span>
               <Input
                 type={"text"}
                 label={"Format of phone to generate"}
                 name={"phoneFormat"}
-                defaultValue={'+39 ##########'}
+                defaultValue={"+39 ##########"}
                 errors={errors}
                 errorsType={{
                   required: true,
                 }}
                 register={register}
               />
-              <p className="text-xs text-gray-500 mb-4">Es: (#####) ### #### or 570-###-###</p>
+              <p className="mb-4 text-xs text-gray-500">
+                Es: (#####) ### #### or 570-###-###
+              </p>
             </span>
             <span>
               <Input
@@ -66,7 +68,6 @@ export const DummyPhone = () => {
                 register={register}
               />
             </span>
-
           </div>
           <button
             type="submit"
@@ -80,7 +81,8 @@ export const DummyPhone = () => {
         <div
           className="absolute top-1 right-1 cursor-copy rounded-md border bg-white p-2 shadow-md transition hover:bg-gray-100"
           onClick={() => {
-            void navigator.clipboard.writeText(randomNumbers.toString())
+            void navigator.clipboard
+              .writeText(randomNumbers.toString())
               .then(() => {
                 toast("Copied to clipboard", {
                   icon: "✂️",
@@ -96,12 +98,12 @@ export const DummyPhone = () => {
 
         <textarea
           placeholder=""
-          className="scrollbar-hide focus-ring-0 block h-full w-full resize-none border-0 p-2 focus:outline-0 sm:text-sm"
+          className="focus-ring-0 block h-full w-full resize-none border-0 p-2 scrollbar-hide focus:outline-0 sm:text-sm"
           value={randomNumbers}
           onChange={(e) => setRandomNumbers(e.target.value)}
         ></textarea>
       </div>
-    </div>
+    </>
   );
 };
 
