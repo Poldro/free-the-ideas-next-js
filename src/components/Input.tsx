@@ -2,7 +2,7 @@ import { FieldErrors, FieldValues, UseFormRegister } from "react-hook-form";
 
 type InputTextProps = {
   type: string;
-  label: string;
+  label?: string;
   name: string;
   value?: string;
   defaultValue?: number | string;
@@ -25,24 +25,29 @@ export const Input = ({
   register,
   errors,
   errorsType,
-  onChange, 
+  onChange,
 }: InputTextProps) => {
   return (
-    <>
-      <label htmlFor={name} className="block text-sm font-medium text-gray-700">
-        {label}
-      </label>
-      <div className="relative my-2 flex justify-center">
+    <div className="w-auto flex flex-col items-center space-y-2">
+      {label && (
+        <label
+          htmlFor={name}
+          className="block text-sm font-medium text-gray-700"
+        >
+          {label}
+        </label>
+      )}
+
         <input
           type={type}
-          className="block w-44 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          className="block w-44 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
           value={value}
           defaultValue={defaultValue}
           {...register(name, errorsType)}
           onChange={onChange} // Add this line
           aria-invalid="true"
         />
-      </div>
+    
       {errors[name]?.type === "required" && (
         <p className="mt-2 text-sm text-red-600">{label} is required</p>
       )}
@@ -56,6 +61,6 @@ export const Input = ({
           {label} must be less than {errorsType.max}
         </p>
       )}
-    </>
+    </div>
   );
 };

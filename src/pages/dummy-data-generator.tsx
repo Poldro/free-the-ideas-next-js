@@ -6,6 +6,7 @@ import { DummyEmail } from "../containers/dummy-data-generator/DummyEmail";
 import { DummyPhone } from "../containers/dummy-data-generator/DummyPhone";
 import { DummyText } from "../containers/dummy-data-generator/DummyText";
 import Layout from "../containers/layout";
+import { Title } from "../components/Title";
 
 const tabs = [
   { name: "Text", current: true },
@@ -42,13 +43,11 @@ const CountWords: NextPage = () => {
         />
       </Head>
       <Layout>
-        <div className="flex w-full flex-1 flex-col items-center justify-center">
-          <div className="flex w-full max-w-3xl flex-1 flex-col rounded-lg bg-white">
-            <div className="flex flex-1 flex-col divide-y divide-gray-200  rounded-lg bg-white shadow">
+        <div className="flex w-full flex-col items-center justify-start space-y-4 lg:space-y-6">
+          <Title title="Dummy Data Generator" />
+          <div className="flex w-full max-w-3xl flex-col rounded-lg bg-white/10">
+            <div className="flex flex-col divide-y divide-gray-200">
               <div className="space-y-4 px-4 py-2 md:p-6">
-                <h1 className="text-center text-lg font-semibold md:text-3xl">
-                  Dummy Data Generator
-                </h1>
                 <Tabs tabs={currentTabs} setTabs={setCurrentTabs} />
               </div>
 

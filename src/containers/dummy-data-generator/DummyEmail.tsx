@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Input } from "../../components/Input";
+import { CopyOnClick } from "../../components/ClickToCopy";
 
 export const DummyEmail = () => {
   const {
@@ -49,30 +50,15 @@ export const DummyEmail = () => {
 
           <button
             type="submit"
-            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
           >
             Generate
           </button>
         </form>
       </div>
+      <CopyOnClick copyText={randomEmails.toString()} icon={true} toastCheck={true} >
       <div className="relative flex-1 p-4 sm:p-6">
-        <div
-          className="absolute top-1 right-1 cursor-copy rounded-md border bg-white p-2 shadow-md transition hover:bg-gray-100"
-          onClick={() => {
-            void navigator.clipboard
-              .writeText(randomEmails.toString())
-              .then(() => {
-                toast("Copied to clipboard", {
-                  icon: "✂️",
-                });
-              })
-              .catch((error) => {
-                console.error("Failed to copy to clipboard", error);
-              });
-          }}
-        >
-          <ClipboardDocumentIcon className="h-5 w-5 text-gray-500" />
-        </div>
+        
 
         <textarea
           placeholder=""
@@ -81,6 +67,7 @@ export const DummyEmail = () => {
           onChange={(e) => setRandomEmails(e.target.value)}
         ></textarea>
       </div>
+      </CopyOnClick>
     </>
   );
 };
