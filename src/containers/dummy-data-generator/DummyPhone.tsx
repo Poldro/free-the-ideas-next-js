@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Input } from "../../components/Input";
+import TextAreaInput from "../../components/TextAreaInput";
+import { CopyOnClick } from "../../components/ClickToCopy";
+import PrimaryButton from "../../components/PrimaryButton";
 
 interface dataSubmit {
   phoneToGenerate: number;
@@ -34,7 +37,7 @@ export const DummyPhone = () => {
   return (
     <>
       {" "}
-      <div className="px-4 py-5 text-center sm:px-6">
+      <div className="text-center">
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-1 md:grid-cols-2">
             <span>
@@ -69,40 +72,17 @@ export const DummyPhone = () => {
               />
             </span>
           </div>
-          <button
-            type="submit"
-            className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-          >
-            Generate
-          </button>
+          <PrimaryButton type="submit" text="Generate" />
         </form>
       </div>
-      <div className="relative flex-1 p-4 sm:p-6">
-        <div
-          className="absolute top-1 right-1 cursor-copy rounded-md border bg-white p-2 shadow-md transition hover:bg-gray-100"
-          onClick={() => {
-            void navigator.clipboard
-              .writeText(randomNumbers.toString())
-              .then(() => {
-                toast("Copied to clipboard", {
-                  icon: "✂️",
-                });
-              })
-              .catch((error) => {
-                console.error("Failed to copy to clipboard", error);
-              });
-          }}
-        >
-          <ClipboardDocumentIcon className="h-5 w-5 text-gray-500" />
+      <CopyOnClick copyText={randomNumbers.toString()} allClickable={false} iconHover={false} className="top-1 right-1">
+        <div className="relative">
+          <TextAreaInput
+            value={randomNumbers}
+            onChange={(e) => setRandomNumbers(e.target.value)}
+          />
         </div>
-
-        <textarea
-          placeholder=""
-          className="focus-ring-0 block h-full w-full resize-none border-0 p-2 scrollbar-hide focus:outline-0 sm:text-sm"
-          value={randomNumbers}
-          onChange={(e) => setRandomNumbers(e.target.value)}
-        ></textarea>
-      </div>
+      </CopyOnClick>
     </>
   );
 };

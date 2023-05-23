@@ -109,17 +109,15 @@ export default function LayoutCountWords({
 
         {/* Static sidebar for desktop */}
         <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
-          {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex min-h-0 flex-1 flex-col bg-gradient-to-r from-dark-secondary to-dark">
             <div className="flex flex-1 flex-col overflow-y-auto py-6">
               <div className="flex flex-shrink-0 items-center px-4">
-                <Link href='/'>
-               
-                <img
-                  className="h-12 w-auto"
-                  src="/poldro-logo.png"
-                  alt="Your Company"
-                />
+                <Link href="/">
+                  <img
+                    className="h-12 w-auto"
+                    src="/poldro-logo.png"
+                    alt="Your Company"
+                  />
                 </Link>
               </div>
               <nav className="mt-5 flex-1 space-y-1 px-2">
@@ -145,7 +143,7 @@ export default function LayoutCountWords({
           <div className="sticky top-0 z-10 bg-dark pl-1 pt-1 sm:pl-3 sm:pt-3 md:hidden">
             <button
               type="button"
-              className="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-300 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+              className="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-300 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
@@ -154,10 +152,15 @@ export default function LayoutCountWords({
           </div>
           <main className="flex flex-1 bg-dark">
             <div className="flex flex-1 py-4 lg:py-6">
-              <div className="mx-auto flex max-w-7xl flex-1 px-4 sm:px-6 md:px-8 ">
-                {/* Replace with your content */}
+              <div className="mx-auto flex max-w-7xl flex-1 flex-col px-4 sm:px-6 md:px-8 ">
                 {children}
-                {/* /End replace */}
+                <Link
+                  className="mt-4 text-center text-primary hover:underline"
+                  href="https://github.com/Poldro/tools"
+                  target="_blank"
+                >
+                  Repository GitHub
+                </Link>
               </div>
             </div>
           </main>

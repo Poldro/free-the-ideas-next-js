@@ -3,6 +3,7 @@ import { useState } from "react";
 import { GrammarlyEditorPlugin } from "@grammarly/editor-sdk-react";
 import Head from "next/head";
 import Layout from "../containers/layout";
+import TextAreaInput from "../components/TextAreaInput";
 
 const CountWords: NextPage = () => {
   const [wordCount, setWordCount] = useState(0);
@@ -14,21 +15,19 @@ const CountWords: NextPage = () => {
   const [selectedSentenceCount, setSelectedSentenceCount] = useState(0);
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setWordCount(
-      e.target.value.split(" ").filter((word) => word.length > 0).length
-    );
-    setCharacterCount(e.target.value.length);
-    setSentenceCount(e.target.value.split(/[.!?]+/g).length - 1);
+    const text = e.target.value;
+    setWordCount(text.split(" ").filter((word) => word.length > 0).length);
+    setCharacterCount(text.length);
+    setSentenceCount(text.split(/(?<=[.!?])(?=[^\n]).|\n(?![.])/g).length - 1);
   };
-
+  
   const handleSelection = () => {
-    const selection = window.getSelection() || "";
-    setSelectedWordCount(
-      selection.toString().split(/\s+/g).filter(Boolean).length
-    );
-    setSelectedCharacterCount(selection.toString().length);
-    setSelectedSentenceCount(selection.toString().split(/[.!?]+/g).length - 1);
+    const selection = window.getSelection()?.toString() || "";
+    setSelectedWordCount(selection.split(/\s+/g).filter(Boolean).length);
+    setSelectedCharacterCount(selection.length);
+    setSelectedSentenceCount(selection.split(/(?<=[.!?])(?=[^\n]).|\n(?![.])/g).length - 1);
   };
+  
 
   return (
     <>
@@ -36,25 +35,24 @@ const CountWords: NextPage = () => {
         <title>Word Counter</title>
         <meta
           name="description"
-          content="A simple free word counter, integrated with Grammarly to check english grammar."
+          content="A simple free word counter, integrated with Grammarly to check English grammar."
         />
       </Head>
       <Layout>
-        <div className="flex flex-1 w-full flex-col items-center justify-center">
-          <div className="flex flex-col flex-1 w-full max-w-3xl divide-y divide-gray-200 rounded-lg bg-white shadow">
+        <div className="flex w-full flex-col items-center justify-start">
+          <div className="flex w-full max-w-3xl flex-col divide-y divide-gray-200 rounded-lg bg-white shadow">
             <div className="px-4 py-5 sm:p-6">
-              <h1 className="text-center text-lg md:text-3xl font-semibold">
+              <h1 className="text-center text-lg font-semibold md:text-3xl">
                 Word Counter
               </h1>
             </div>
-            <div className="flex-1 px-4 py-4 sm:px-6">
+            <div className="px-4 py-4 sm:px-6">
               <GrammarlyEditorPlugin clientId="client_2QNNYPesdJhwfCszntmPA6">
-                <textarea
+                <TextAreaInput
+                  placeholder="Copy paste your text to count words, characters and sentences. You can select a particular piece of text to count it."
                   onChange={handleChange}
                   onSelect={handleSelection}
-                  placeholder="Copy paste your text to count words, characters and sentences. You can select a particular piece of text to count it."
-                  className="focus-ring-0 block h-full w-full resize-none border-0 p-2 focus:outline-0 sm:text-sm"
-                ></textarea>
+                />
               </GrammarlyEditorPlugin>
             </div>
           </div>

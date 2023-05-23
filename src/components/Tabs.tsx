@@ -30,7 +30,7 @@ export default function Tabs({ tabs, setTabs }: TabProps) {
     <div>
       <div className="block">
         <nav
-          className="isolate flex divide-x divide-gray-200 rounded-lg shadow"
+          className="isolate flex divide-x divide-gray-400 rounded-lg shadow"
           aria-label="Tabs"
         >
           {tabs.map((tab, tabIdx) => (
@@ -39,11 +39,11 @@ export default function Tabs({ tabs, setTabs }: TabProps) {
               key={tab.name}
               className={classNames(
                 tab.current
-                  ? "text-gray-900"
-                  : "text-gray-500 hover:text-gray-700 cursor-pointer",
+                  ? "text-gray-50"
+                  : "text-gray-400 hover:text-gray-50 cursor-pointer",
                 tabIdx === 0 ? "rounded-l-lg" : "",
                 tabIdx === tabs.length - 1 ? "rounded-r-lg" : "",
-                "group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-center text-sm font-medium hover:bg-gray-50 focus:z-10"
+                "group relative min-w-0 flex-1 overflow-hidden bg-white/10 py-4 px-4 text-center text-sm font-medium hover:bg-white/20 focus:z-10"
               )}
               aria-current={tab.current ? "page" : undefined}
             >

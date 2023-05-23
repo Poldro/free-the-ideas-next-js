@@ -7,6 +7,15 @@ import "react-toastify/dist/ReactToastify.css";
 import { api } from "../utils/api";
 
 import "../styles/globals.css";
+import dynamic from "next/dynamic";
+
+// Lazy-load GTM
+const GoogleTagManager = dynamic(
+  () => {
+    return import("../components/GoogleTagManager");
+  },
+  { ssr: false } // This will only load GTM on the client side
+);
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,
@@ -14,6 +23,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
 }) => {
   return (
     <SessionProvider session={session}>
+      <GoogleTagManager />
       <Component {...pageProps} />
       <ToastContainer
         position="top-right"

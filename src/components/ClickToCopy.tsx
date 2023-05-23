@@ -5,23 +5,26 @@ export const CopyOnClick = ({
   children,
   copyText,
   className,
-  icon,
-  toastCheck
+  iconHover = true,
+  toastCheck = true,
+  allClickable = true,
 }: {
   children: React.ReactNode;
   copyText: string;
   className?: string;
-  icon: boolean;
-  toastCheck: boolean;
+  iconHover?: boolean;
+  toastCheck?: boolean;
+  allClickable?: boolean;
 }) => {
-  const handleCopy = () => {
+  const handleCopy = (e: React.MouseEvent) => {
+    e.stopPropagation();
     void navigator.clipboard
       .writeText(copyText)
       .then(() => {
-        toastCheck && 
-        toast("Copied to clipboard", {
-          icon: "✂️",
-        });
+        toastCheck &&
+          toast("Copied to clipboard", {
+            icon: "✂️",
+          });
       })
       .catch((error) => {
         console.error("Failed to copy to clipboard", error);
@@ -30,16 +33,16 @@ export const CopyOnClick = ({
 
   return (
     <div
-      className={`${className} group relative cursor-copy`}
-      onClick={handleCopy}
+      className={`group relative ${allClickable ? 'cursor-copy' : ''}`}
+      onClick={allClickable ? handleCopy : undefined}
     >
-      {icon && (
-        <div
-          className={`z-50 absolute top-1 right-1 hidden rounded-md border border-gray-500 p-2 shadow-md group-hover:block`}
-        >
-          <ClipboardDocumentIcon className="h-5 w-5 text-gray-200" />
-        </div>
-      )}
+      <div
+
+        className={`${className} absolute z-50 ${iconHover ? 'group-hover:block hidden' : 'block'} rounded-md border border-gray-300 bg-dark p-2 shadow-md ${allClickable ? '' : 'cursor-copy'}`}
+        onClick={allClickable ? undefined : handleCopy}
+      >
+        <ClipboardDocumentIcon className="h-5 w-5 text-gray-300" />
+      </div>
       {children}
     </div>
   );

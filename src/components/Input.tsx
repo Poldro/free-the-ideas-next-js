@@ -28,26 +28,26 @@ export const Input = ({
   onChange,
 }: InputTextProps) => {
   return (
-    <div className="w-auto flex flex-col items-center space-y-2">
+    <div className="flex w-auto flex-col items-center space-y-2">
       {label && (
         <label
           htmlFor={name}
-          className="block text-sm font-medium text-gray-700"
+          className="block text-sm font-medium text-gray-400"
         >
           {label}
         </label>
       )}
 
-        <input
-          type={type}
-          className="block w-44 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
-          value={value}
-          defaultValue={defaultValue}
-          {...register(name, errorsType)}
-          onChange={onChange} // Add this line
-          aria-invalid="true"
-        />
-    
+      <input
+        type={type}
+        className="bg-dark text-gray-300 placeholder-gray-400 block w-44 rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm"
+        value={value}
+        defaultValue={defaultValue}
+        {...register(name, errorsType)}
+        onChange={onChange} // Add this line
+        aria-invalid="true"
+      />
+
       {errors[name]?.type === "required" && (
         <p className="mt-2 text-sm text-red-600">{label} is required</p>
       )}

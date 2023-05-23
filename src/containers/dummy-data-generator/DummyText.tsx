@@ -7,6 +7,9 @@ import RandExp from "randexp";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { loremIpsumData } from "../../utils/dummy-data";
+import TextAreaInput from "../../components/TextAreaInput";
+import { CopyOnClick } from "../../components/ClickToCopy";
+import PrimaryButton from "../../components/PrimaryButton";
 
 export const DummyText = () => {
   const [randomString, setRandomString] = useState(
@@ -19,40 +22,22 @@ export const DummyText = () => {
 
   return (
     <>
-      <div className="px-4 py-5 text-center sm:px-6">
-        <button
-          onClick={() => createRandomString()}
-          className="inline-flex items-center rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium leading-4 text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-        >
-          Generate
-        </button>
+      <div className="text-center">
+        <PrimaryButton text="Generate" onClick={() => createRandomString()} />
       </div>
-      <div className="relative flex-1 p-4 sm:p-6">
-        <div
-          className="absolute top-1 right-1 cursor-copy rounded-md border bg-white p-2 shadow-md transition hover:bg-gray-100"
-          onClick={() => {
-            void navigator.clipboard
-              .writeText(randomString)
-              .then(() => {
-                toast("Copied to clipboard", {
-                  icon: "✂️",
-                });
-              })
-              .catch((error) => {
-                console.error("Failed to copy to clipboard", error);
-              });
-          }}
-        >
-          <ClipboardDocumentIcon className="h-5 w-5 text-gray-500" />
+      <CopyOnClick
+        copyText={randomString}
+        allClickable={false}
+        iconHover={false}
+        className="top-1 right-1"
+      >
+        <div className="relative">
+          <TextAreaInput
+            value={randomString}
+            onChange={(e) => setRandomString(e.target.value)}
+          />
         </div>
-
-        <textarea
-          placeholder=""
-          className="border-box focus-ring-0 h-full w-full resize-none border-0 p-2 scrollbar-hide focus:outline-0 sm:text-sm"
-          value={randomString}
-          onChange={(e) => setRandomString(e.target.value)}
-        ></textarea>
-      </div>
+      </CopyOnClick>
     </>
   );
 };

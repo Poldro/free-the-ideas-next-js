@@ -24,19 +24,36 @@ const ColorConverter: NextPage = () => {
 
   const hexStats = [
     { name: "HEX", stat: colorHex },
-    { name: "RGBA", stat: `rgb(${convert.hex.rgb(colorHex).toString()})` },
+    {
+      name: "RGBA",
+      stat:
+        colorHex.length === 9 // Check if alpha channel exists in the HEX color
+          ? `rgba(${convert.hex.rgb(colorHex.slice(0, 7)).toString()},${(
+              parseInt(colorHex.slice(7), 16) / 255
+            ).toFixed(2)})` // Convert last 2 digits of HEX color from [0,255] to [0,1] and round to 2 decimal places
+          : `rgb(${convert.hex.rgb(colorHex).toString()})`, // If no alpha channel, set alpha to 1
+    },
     { name: "HSL", stat: `hsl(${convert.hex.hsl(colorHex).toString()})` },
     { name: "CMYK", stat: `cmyk(${convert.hex.cmyk(colorHex).toString()})` },
   ];
 
   const rgbaStats = [
     {
-      name: "HEX",
-      stat: `#${convert.rgb.hex(colorRgba.r, colorRgba.g, colorRgba.b)}`,
+      name: "HEX ALPHA",
+      stat:
+        colorRgba.a < 1
+          ? `#${convert.rgb.hex(
+              colorRgba.r,
+              colorRgba.g,
+              colorRgba.b
+            )}${Math.floor(colorRgba.a * 255)
+              .toString(16)
+              .padStart(2, "0")}` // convert alpha from [0,1] to [0,255] and then to hex
+          : `#${convert.rgb.hex(colorRgba.r, colorRgba.g, colorRgba.b)}`, // If alpha equals 1, return HEX without alpha
     },
     {
       name: "RGBA",
-      stat: `rgba(${colorRgba.r}, ${colorRgba.g}, ${colorRgba.b}, ${colorRgba.a})`,
+      stat: `rgba(${colorRgba.r},${colorRgba.g},${colorRgba.b},${colorRgba.a})`,
     },
     {
       name: "HSL",
@@ -101,7 +118,7 @@ const ColorConverter: NextPage = () => {
         <div className="flex w-full flex-col items-center justify-start space-y-4 lg:space-y-6">
           <Title title="Color Converter" />
 
-          <div className="w-full max-w-3xl rounded-xl bg-white shadow ">
+          <div className="w-full max-w-3xl rounded-2xl bg-white shadow">
             <div
               style={{
                 backgroundColor:
@@ -109,11 +126,12 @@ const ColorConverter: NextPage = () => {
                     ? `rgba(${colorRgba.r},${colorRgba.g},${colorRgba.b},${colorRgba.a})`
                     : colorHex,
               }}
-              className={`flex flex-col rounded-xl px-4 lg:px-6 py-8`}
+              className={`flex flex-col rounded-xl px-4 py-8 lg:px-6`}
             >
               <div className="space-y-4 lg:space-y-6">
+                <CopyOnClick copyText={inputColor.toString()} allClickable={false} iconHover={false} className="top-0 right-0">
                 <div className="relative flex justify-center">
-                  <div className="">
+            
                     <Input
                       type={"text"}
                       name={"colorFormat"}
@@ -123,26 +141,9 @@ const ColorConverter: NextPage = () => {
                       register={register}
                       onChange={handleInputChange}
                     />
-                  </div>
-                  <div
-                    className="absolute right-0 top-0 mr-4 cursor-copy rounded-md border border-gray-500 p-2 shadow-md hover:border-gray-200" // Added ml-2 for margin left
-                    onClick={() => {
-                      void navigator.clipboard
-                        .writeText(inputColor.toString())
-                        .then(() => {
-                          toast("Copied to clipboard", {
-                            icon: "✂️",
-                          });
-                        })
-                        .catch((error) => {
-                          console.error("Failed to copy to clipboard", error);
-                        });
-                    }}
-                  >
-                    <ClipboardDocumentIcon className="h-5 w-5 text-gray-200" />
-                  </div>
+                 
                 </div>
-
+                </CopyOnClick>
                 <div className="flex w-full justify-center">
                   <ColorPicker
                     colorFormat={colorFormat}
@@ -194,9 +195,9 @@ const Stats = ({ stats }: StatsProps) => {
           stats.map((stat) => (
             <CopyOnClick
               copyText={stat.stat}
+              allClickable={true}
               key={stat.name}
-              icon={true}
-              toastCheck={true}
+              className="top-1 right-1"
             >
               <div className="group relative h-full rounded-lg bg-white/10 px-2 py-2 shadow-md transition hover:bg-white/20 lg:px-4 lg:py-4">
                 <p className="text-sm font-medium leading-6 text-gray-400">
