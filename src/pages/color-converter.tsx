@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { FC, useState } from "react";
 import Head from "next/head";
 import Layout from "../containers/layout";
 import { HexAlphaColorPicker, RgbaColorPicker } from "react-colorful";
@@ -8,12 +8,18 @@ import { useForm } from "react-hook-form";
 import { Title } from "../components/Title";
 import { NextPage } from "next";
 import { CopyOnClick } from "../components/ClickToCopy";
-import { toast } from "react-toastify";
-import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
+
+
+type ColorRgba = {
+  r: number;
+  g: number;
+  b: number;
+  a: number;
+};
 
 const ColorConverter: NextPage = () => {
   const [colorHex, setColorHex] = useState("#aabbcc");
-  const [colorRgba, setColorRgba] = useState({ r: 170, g: 187, b: 204, a: 1 });
+  const [colorRgba, setColorRgba] = useState<ColorRgba>({ r: 170, g: 187, b: 204, a: 1 });
   const [inputColor, setInputColor] = useState("#aabbcc");
   const [colorFormat, setColorFormat] = useState("hex");
 
@@ -23,9 +29,9 @@ const ColorConverter: NextPage = () => {
   } = useForm();
 
   const hexStats = [
-    { name: "HEX", stat: colorHex },
+    { name: "hex α", stat: colorHex },
     {
-      name: "RGBA",
+      name: "rgba",
       stat:
         colorHex.length === 9 // Check if alpha channel exists in the HEX color
           ? `rgba(${convert.hex.rgb(colorHex.slice(0, 7)).toString()},${(
@@ -33,13 +39,13 @@ const ColorConverter: NextPage = () => {
             ).toFixed(2)})` // Convert last 2 digits of HEX color from [0,255] to [0,1] and round to 2 decimal places
           : `rgb(${convert.hex.rgb(colorHex).toString()})`, // If no alpha channel, set alpha to 1
     },
-    { name: "HSL", stat: `hsl(${convert.hex.hsl(colorHex).toString()})` },
-    { name: "CMYK", stat: `cmyk(${convert.hex.cmyk(colorHex).toString()})` },
+    { name: "hsl", stat: `hsl(${convert.hex.hsl(colorHex).toString()})` },
+    { name: "cmyk", stat: `cmyk(${convert.hex.cmyk(colorHex).toString()})` },
   ];
 
   const rgbaStats = [
     {
-      name: "HEX ALPHA",
+      name: "hex α",
       stat:
         colorRgba.a < 1
           ? `#${convert.rgb.hex(
@@ -52,17 +58,17 @@ const ColorConverter: NextPage = () => {
           : `#${convert.rgb.hex(colorRgba.r, colorRgba.g, colorRgba.b)}`, // If alpha equals 1, return HEX without alpha
     },
     {
-      name: "RGBA",
+      name: "rgba",
       stat: `rgba(${colorRgba.r},${colorRgba.g},${colorRgba.b},${colorRgba.a})`,
     },
     {
-      name: "HSL",
+      name: "hsl",
       stat: `hsl(${convert.rgb
         .hsl(colorRgba.r, colorRgba.g, colorRgba.b)
         .toString()})`,
     },
     {
-      name: "CMYK",
+      name: "cmyk",
       stat: `cmyk(${convert.rgb
         .cmyk(colorRgba.r, colorRgba.g, colorRgba.b)
         .toString()})`,
@@ -97,12 +103,12 @@ const ColorConverter: NextPage = () => {
     }
   };
 
-  const handleHexChange = (color) => {
+  const handleHexChange = (color: string) => {
     setColorHex(color);
     setInputColor(color);
   };
 
-  const handleRgbaChange = (color) => {
+  const handleRgbaChange = (color: ColorRgba) => {
     setColorRgba(color);
     const rgbString = `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`;
     setInputColor(rgbString);
@@ -118,7 +124,7 @@ const ColorConverter: NextPage = () => {
         <div className="flex w-full flex-col items-center justify-start space-y-4 lg:space-y-6">
           <Title title="Color Converter" />
 
-          <div className="w-full max-w-3xl rounded-2xl bg-white shadow">
+          <div className="w-full max-w-3xl rounded-md bg-white shadow">
             <div
               style={{
                 backgroundColor:
@@ -126,24 +132,20 @@ const ColorConverter: NextPage = () => {
                     ? `rgba(${colorRgba.r},${colorRgba.g},${colorRgba.b},${colorRgba.a})`
                     : colorHex,
               }}
-              className={`flex flex-col rounded-xl px-4 py-8 lg:px-6`}
+              className={`flex flex-col rounded-md px-4 py-8 lg:px-6`}
             >
               <div className="space-y-4 lg:space-y-6">
-                <CopyOnClick copyText={inputColor.toString()} allClickable={false} iconHover={false} className="top-0 right-0">
                 <div className="relative flex justify-center">
-            
-                    <Input
-                      type={"text"}
-                      name={"colorFormat"}
-                      value={inputColor}
-                      errors={errors}
-                      errorsType={{ required: true }}
-                      register={register}
-                      onChange={handleInputChange}
-                    />
-                 
+                  <Input
+                    type={"text"}
+                    name={"colorFormat"}
+                    value={inputColor}
+                    errors={errors}
+                    errorsType={{ required: true }}
+                    register={register}
+                    onChange={handleInputChange}
+                  />
                 </div>
-                </CopyOnClick>
                 <div className="flex w-full justify-center">
                   <ColorPicker
                     colorFormat={colorFormat}
@@ -169,7 +171,13 @@ const ColorConverter: NextPage = () => {
 
 export default ColorConverter;
 
-const ColorPicker = ({
+const ColorPicker: FC<{
+  colorFormat: string,
+  colorHex: string,
+  handleHexChange: (color: string) => void,
+  colorRgba: ColorRgba,
+  handleRgbaChange: (color: ColorRgba) => void,
+}> = ({
   colorFormat,
   colorHex,
   handleHexChange,
@@ -199,12 +207,12 @@ const Stats = ({ stats }: StatsProps) => {
               key={stat.name}
               className="top-1 right-1"
             >
-              <div className="group relative h-full rounded-lg bg-white/10 px-2 py-2 shadow-md transition hover:bg-white/20 lg:px-4 lg:py-4">
+              <div className="group relative h-full rounded-md bg-white/10 px-2 py-2 shadow-md transition hover:bg-white/20 lg:px-4 lg:py-4">
                 <p className="text-sm font-medium leading-6 text-gray-400">
                   {stat.name}
                 </p>
                 <p className="mt-2 flex items-baseline gap-x-2">
-                  <span className="text-md font-semibold tracking-tight text-white">
+                  <span className="text-md font-semibold tracking-tight text-gray-50">
                     {stat.stat}
                   </span>
                 </p>

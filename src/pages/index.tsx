@@ -27,7 +27,7 @@ const Home: NextPage = () => {
               .map((item, idx) => (
                 <Link
                   key={idx}
-                  className="flex max-w-md flex-col gap-4 rounded-xl bg-white/10 p-4 text-gray-50 hover:bg-white/20"
+                  className="flex max-w-md flex-col gap-4 rounded-md bg-white/10 p-4 text-gray-50 hover:bg-white/20"
                   href={item.href}
                 >
                   <h3 className="text-2xl font-bold">{item.name} →</h3>

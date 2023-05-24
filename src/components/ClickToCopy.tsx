@@ -38,10 +38,10 @@ export const CopyOnClick = ({
     >
       <div
 
-        className={`${className} absolute z-50 ${iconHover ? 'group-hover:block hidden' : 'block'} rounded-md border border-gray-300 bg-dark p-2 shadow-md ${allClickable ? '' : 'cursor-copy'}`}
+        className={`${className} absolute z-50 block ${iconHover ? 'lg:group-hover:block lg:hidden' : ''} rounded-md border border-gray-300 bg-dark p-1  lg:p-2 shadow-md ${allClickable ? '' : 'cursor-copy'}`}
         onClick={allClickable ? undefined : handleCopy}
       >
-        <ClipboardDocumentIcon className="h-5 w-5 text-gray-300" />
+        <ClipboardDocumentIcon className="h-4 w-4 text-gray-300" />
       </div>
       {children}
     </div>

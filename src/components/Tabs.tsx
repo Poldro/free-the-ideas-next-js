@@ -30,7 +30,7 @@ export default function Tabs({ tabs, setTabs }: TabProps) {
     <div>
       <div className="block">
         <nav
-          className="isolate flex divide-x divide-gray-400 rounded-lg shadow"
+          className="isolate flex divide-x divide-gray-400 rounded-md shadow"
           aria-label="Tabs"
         >
           {tabs.map((tab, tabIdx) => (

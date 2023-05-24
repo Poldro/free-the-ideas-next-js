@@ -35,7 +35,7 @@ export const DummyEmail = () => {
   return (
     <>
       <div className="text-center">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <Input
             type={"number"}
             label={"Number of emails to generate"}
@@ -52,7 +52,7 @@ export const DummyEmail = () => {
           <PrimaryButton type="submit" text="Generate" />
         </form>
       </div>
-      <CopyOnClick copyText={randomEmails.toString()} allClickable={false} iconHover={false} className="top-1 right-1">
+      <CopyOnClick copyText={randomEmails.toString()} allClickable={false} className="top-1 right-1">
         <div className="relative">
           <TextAreaInput
             value={randomEmails}

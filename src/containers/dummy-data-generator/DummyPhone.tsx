@@ -38,12 +38,12 @@ export const DummyPhone = () => {
     <>
       {" "}
       <div className="text-center">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2">
             <span>
               <Input
                 type={"text"}
-                label={"Format of phone to generate"}
+                label={"Format for Phone Numbers"}
                 name={"phoneFormat"}
                 defaultValue={"+39 ##########"}
                 errors={errors}
@@ -52,14 +52,14 @@ export const DummyPhone = () => {
                 }}
                 register={register}
               />
-              <p className="mb-4 text-xs text-gray-500">
+              <p className="mt-1 text-xs text-gray-500">
                 Es: (#####) ### #### or 570-###-###
               </p>
             </span>
-            <span>
+            <span className="mt-4 md:mt-0">
               <Input
                 type={"number"}
-                label={"Number of phone numbers to generate"}
+                label={"Quantity of Phone Numbers"}
                 name={"phoneToGenerate"}
                 defaultValue={5}
                 errors={errors}
@@ -75,7 +75,7 @@ export const DummyPhone = () => {
           <PrimaryButton type="submit" text="Generate" />
         </form>
       </div>
-      <CopyOnClick copyText={randomNumbers.toString()} allClickable={false} iconHover={false} className="top-1 right-1">
+      <CopyOnClick copyText={randomNumbers.toString()} allClickable={false} className="top-1 right-1">
         <div className="relative">
           <TextAreaInput
             value={randomNumbers}

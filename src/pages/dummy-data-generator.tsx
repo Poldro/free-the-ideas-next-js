@@ -47,7 +47,7 @@ const CountWords: NextPage = () => {
           <Title title="Dummy Data Generator" />
           <div className="flex w-full max-w-3xl flex-col space-y-4 lg:space-y-6">
             <Tabs tabs={currentTabs} setTabs={setCurrentTabs} />
-            <div className="space-y-4 rounded-lg bg-white/10 p-4 lg:space-y-6 lg:p-6">
+            <div className="space-y-4 rounded-md bg-white/10 p-4 lg:space-y-6 lg:p-6">
               {renderTab()}
             </div>
           </div>

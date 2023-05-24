@@ -35,7 +35,8 @@ const MyApp: AppType<{ session: Session | null }> = ({
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="light"
+        theme="dark"
+        toastStyle={{ backgroundColor: "#15162c" }}
       />
     </SessionProvider>
   );

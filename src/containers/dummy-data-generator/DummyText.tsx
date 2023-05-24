@@ -28,7 +28,6 @@ export const DummyText = () => {
       <CopyOnClick
         copyText={randomString}
         allClickable={false}
-        iconHover={false}
         className="top-1 right-1"
       >
         <div className="relative">

@@ -3,14 +3,14 @@ import React, { useState, useEffect, useRef } from "react";
 type TextAreaInputProps = {
   placeholder?: string;
   value?: string;
-  onSelect?: (e: React.SyntheticEvent) => void;
+  onSelect?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   className?: string;
 };
 
 const TextAreaInput: React.FC<TextAreaInputProps> = ({
   placeholder = "",
-  value,
+  value = "",
   onSelect = () => {},
   onChange,
   className = "",

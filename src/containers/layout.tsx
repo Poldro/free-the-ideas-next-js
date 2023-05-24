@@ -24,7 +24,7 @@ export default function LayoutCountWords({
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="relative z-40 md:hidden"
+            className="relative z-40 lg:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -108,13 +108,13 @@ export default function LayoutCountWords({
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
           <div className="flex min-h-0 flex-1 flex-col bg-gradient-to-r from-dark-secondary to-dark">
             <div className="flex flex-1 flex-col overflow-y-auto py-6">
               <div className="flex flex-shrink-0 items-center px-4">
                 <Link href="/">
                   <img
-                    className="h-12 w-auto"
+                    className="h-10 w-auto"
                     src="/poldro-logo.png"
                     alt="Your Company"
                   />
@@ -129,7 +129,7 @@ export default function LayoutCountWords({
                       item.href === router.pathname
                         ? "bg-gradient-to-r from-primary to-dark text-white"
                         : "text-gray-300 hover:bg-dark hover:text-white",
-                      "group flex items-center rounded-md px-2 py-2 text-base font-medium"
+                      "group flex items-center rounded-md px-2 py-2 text-sm font-medium"
                     )}
                   >
                     {item.name}
@@ -139,8 +139,8 @@ export default function LayoutCountWords({
             </div>
           </div>
         </div>
-        <div className="flex h-screen flex-col md:pl-64">
-          <div className="sticky top-0 z-10 bg-dark pl-1 pt-1 sm:pl-3 sm:pt-3 md:hidden">
+        <div className="flex h-screen flex-col lg:pl-64">
+          <div className="sticky top-0 z-10 bg-dark pl-1 pt-1 sm:pl-3 sm:pt-3 lg:hidden">
             <button
               type="button"
               className="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-300 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
@@ -152,15 +152,17 @@ export default function LayoutCountWords({
           </div>
           <main className="flex flex-1 bg-dark">
             <div className="flex flex-1 py-4 lg:py-6">
-              <div className="mx-auto flex max-w-7xl flex-1 flex-col px-4 sm:px-6 md:px-8 ">
+              <div className="mx-auto flex max-w-7xl flex-1 flex-col px-4 sm:px-6 lg:px-8 ">
                 {children}
+                <div className="mt-4 text-center">
                 <Link
-                  className="mt-4 text-center text-primary hover:underline"
+                  className=" text-primary hover:underline"
                   href="https://github.com/Poldro/tools"
                   target="_blank"
                 >
                   Repository GitHub
                 </Link>
+                </div>
               </div>
             </div>
           </main>
