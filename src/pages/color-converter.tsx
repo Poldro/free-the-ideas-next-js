@@ -124,7 +124,7 @@ const ColorConverter: NextPage = () => {
         <div className="flex w-full flex-col items-center justify-start space-y-4 lg:space-y-6">
           <Title title="Color Converter" />
 
-          <div className="w-full max-w-3xl rounded-sm bg-white shadow">
+          <div className="w-full max-w-3xl rounded-lg bg-white shadow">
             <div
               style={{
                 backgroundColor:
