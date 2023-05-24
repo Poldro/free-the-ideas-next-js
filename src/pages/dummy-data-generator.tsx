@@ -6,6 +6,7 @@ import { DummyEmail } from "../containers/dummy-data-generator/DummyEmail";
 import { DummyPhone } from "../containers/dummy-data-generator/DummyPhone";
 import { DummyText } from "../containers/dummy-data-generator/DummyText";
 import Layout from "../containers/layout";
+import { Title } from "../components/Title";
 
 const tabs = [
   { name: "Text", current: true },
@@ -34,23 +35,24 @@ const CountWords: NextPage = () => {
   };
   return (
     <>
-          <Head>
+      <Head>
         <title>Dummy Data Generator</title>
-        <meta name="description" content="A tool to generate random text, emails and phone numbers" />
+        <meta
+          name="description"
+          content="A tool to generate random text, emails and phone numbers"
+        />
       </Head>
-    <Layout>
-      <div className="flex flex-1 w-full flex-col items-center justify-center">
-        <div className="flex flex-col flex-1 w-full max-w-3xl rounded-lg bg-white lg:my-8 ">
-          <div className="space-y-4 px-4 py-2 md:p-6">
-            <h1 className="text-center text-lg md:text-3xl font-semibold">
-              Dummy Data Generator
-            </h1>
+      <Layout>
+        <div className="flex w-full flex-col items-center justify-start space-y-4 lg:space-y-6">
+          <Title title="Dummy Data Generator" />
+          <div className="flex w-full max-w-3xl flex-col space-y-4 lg:space-y-6">
             <Tabs tabs={currentTabs} setTabs={setCurrentTabs} />
+            <div className="space-y-4 rounded-md bg-white/10 p-4 lg:space-y-6 lg:p-6">
+              {renderTab()}
+            </div>
           </div>
-          <div className="flex flex-1">{renderTab()}</div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
     </>
   );
 };

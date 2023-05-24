@@ -16,16 +16,15 @@ export default function LayoutCountWords({
 }) {
   const router = useRouter();
 
-      const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    
   return (
     <>
       <div>
         <Transition.Root show={sidebarOpen} as={Fragment}>
           <Dialog
             as="div"
-            className="relative z-40 md:hidden"
+            className="relative z-40 lg:hidden"
             onClose={setSidebarOpen}
           >
             <Transition.Child
@@ -50,7 +49,7 @@ export default function LayoutCountWords({
                 leaveFrom="translate-x-0"
                 leaveTo="-translate-x-full"
               >
-                <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-gray-800">
+                <Dialog.Panel className="relative flex w-full max-w-xs flex-1 flex-col bg-gradient-to-r from-dark-secondary to-dark">
                   <Transition.Child
                     as={Fragment}
                     enter="ease-in-out duration-300"
@@ -74,10 +73,10 @@ export default function LayoutCountWords({
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="h-0 flex-1 overflow-y-auto pt-5 pb-4">
+                  <div className="h-0 flex-1 overflow-y-auto py-6">
                     <div className="flex flex-shrink-0 items-center px-4">
                       <img
-                        className="h-8 w-auto"
+                        className="h-12 w-auto"
                         src="/poldro-logo.png"
                         alt="Your Company"
                       />
@@ -89,8 +88,8 @@ export default function LayoutCountWords({
                           href={item.href}
                           className={classNames(
                             item.href === router.pathname
-                              ? "bg-gray-900 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                              ? "bg-gradient-to-r from-primary to-dark text-white"
+                              : "text-gray-300 hover:bg-dark hover:text-white",
                             "group flex items-center rounded-md px-2 py-2 text-base font-medium"
                           )}
                         >
@@ -109,16 +108,17 @@ export default function LayoutCountWords({
         </Transition.Root>
 
         {/* Static sidebar for desktop */}
-        <div className="hidden md:fixed md:inset-y-0 md:flex md:w-64 md:flex-col">
-          {/* Sidebar component, swap this element with another sidebar if you like */}
-          <div className="flex min-h-0 flex-1 flex-col bg-gray-800">
-            <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
+        <div className="hidden lg:fixed lg:inset-y-0 lg:flex lg:w-64 lg:flex-col">
+          <div className="flex min-h-0 flex-1 flex-col bg-gradient-to-r from-dark-secondary to-dark">
+            <div className="flex flex-1 flex-col overflow-y-auto py-6">
               <div className="flex flex-shrink-0 items-center px-4">
-                <img
-                  className="h-8 w-auto"
-                  src="/poldro-logo.png"
-                  alt="Your Company"
-                />
+                <Link href="/">
+                  <img
+                    className="h-10 w-auto"
+                    src="/poldro-logo.png"
+                    alt="Your Company"
+                  />
+                </Link>
               </div>
               <nav className="mt-5 flex-1 space-y-1 px-2">
                 {navigation.map((item) => (
@@ -127,8 +127,8 @@ export default function LayoutCountWords({
                     href={item.href}
                     className={classNames(
                       item.href === router.pathname
-                        ? "bg-gray-900 text-white"
-                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                        ? "bg-gradient-to-r from-primary to-dark text-white"
+                        : "text-gray-300 hover:bg-dark hover:text-white",
                       "group flex items-center rounded-md px-2 py-2 text-sm font-medium"
                     )}
                   >
@@ -139,23 +139,30 @@ export default function LayoutCountWords({
             </div>
           </div>
         </div>
-        <div className="flex h-screen flex-col md:pl-64">
-          <div className="sticky top-0 z-10 bg-gray-100 pl-1 pt-1 sm:pl-3 sm:pt-3 md:hidden">
+        <div className="flex h-screen flex-col lg:pl-64">
+          <div className="sticky top-0 z-10 bg-dark pl-1 pt-1 sm:pl-3 sm:pt-3 lg:hidden">
             <button
               type="button"
-              className="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-500 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="-ml-0.5 -mt-0.5 inline-flex h-12 w-12 items-center justify-center rounded-md text-gray-300 hover:text-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
               onClick={() => setSidebarOpen(true)}
             >
               <span className="sr-only">Open sidebar</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
-          <main className="flex flex-1">
-            <div className="py-2 md:py-6 flex flex-1">
-              <div className="mx-auto flex flex-1 max-w-7xl px-4 sm:px-6 md:px-8">
-                {/* Replace with your content */}
+          <main className="flex flex-1 bg-dark">
+            <div className="flex flex-1 py-4 lg:py-6">
+              <div className="mx-auto flex max-w-7xl flex-1 flex-col px-4 sm:px-6 lg:px-8 ">
                 {children}
-                {/* /End replace */}
+                <div className="mt-4 text-center">
+                <Link
+                  className=" text-primary hover:underline"
+                  href="https://github.com/Poldro/tools"
+                  target="_blank"
+                >
+                  Repository GitHub
+                </Link>
+                </div>
               </div>
             </div>
           </main>
